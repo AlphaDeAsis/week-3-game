@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman! My homework</title>
+</head>
+<body>
+
+<div id="secret">
+
+<h1>Hangman</h1>
+<h2>Press a letter to guess.</h2>
+<label>Your Progress:</label>
+<input id="output" type="text" size="40">
+
+ </div>
+
+
+<script>
+var computerChoices = ['bryce', 'alpha', 'kris', 'charlie'];
+var progress = "";
+var life = 10;
+var output = document.getElementById('output')
+
+
+// This chooses a word from the set randomly.
+
+    var secretWord = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    for (i=0; i < secretWord.length; i++){
+        progress += "_";
+    }
+
+
+
+    document.onkeyup = function() {
+    var letter = String.fromCharCode(event.keyCode).toLowerCase();
+
+        if (secretWord.indexOf(letter) > -1){
+            output.value = "Good Guess!";
+        
+
+            
+
+                index = secretWord.indexOf(letter);
+                progress = progress.substr(0, index) + letter + progress.substr(index + 1);
+                secretWord = secretWord.substr(0, index) + '*' + secretWord.substr(index + 1);
+                        
+                        console.log('Secret Word is: ' + secretWord);
+
+                        
+                        
+
+                        
+                        document.querySelector('#secret').innerHTML = progress;
+
+        }
+
+        
+
+        
+        if ((/([a-zA-Z]).*?\1/).test(secretWord)) {             
+                    alert("Yep, there's a duplicate here")
+        }
+        
+
+        else {
+                life --;
+                
+                output.value = "Oops! " + life + " tries left...";
+                // alert("Oops! " + life + " tries left...");
+                
+            }
+
+}
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
